@@ -1,0 +1,23 @@
+Optica este o parte a fizicii care studiaza lumina si fenomenele luminoase. 
+Optica cerceteaza natura luminii, producerea, propagarea, absorbtia, interactiunea ei cu substantele precum si masurarea marimilor ce caracterizeaza lumina.
+
+Lumina, generata sau reflectata de diverse corpuri constituie agentul fizic care, prin intermediul retinei, face ca ochiul sa poata vedea aceste corpuri.
+
+Natura luminii si comportamentul ei au preocupat pe oameni din cele mai vechi timpuri, dar abia o data cu dezvoltarea metodelor experimentale de verificare a ipotezelor, cercetarea a devenit din speculativa, stiintifica.
+
+Lumina se propaga in linie dreapta iar in 1637 Descartes enunta legile refractiei. 
+
+Inceputul secolului al XVIII-lea este marcat de o dezvoltare exploziva mai ales a opticii geometrice, prin lucrarile fundamentale ale lui Gauss si Lagrange. 
+
+Newton sustinea natura corpusculara a luminii si se baza pe caracterul rectiliniu al propagarii luminii si pe legile reflexiei, pe care le asemana cu ciocnirea corpurilor. 
+
+Teoria lui Newton nu putea insa explica fenomenele de interferenta, difractie sau de polarizare. 
+Radiatia luminoasa ce contine unde cu o singura lungime de unda poarta numele de radiatie monocromatica.
+
+In prezent lumina este definita ca o unda electromagnetica, ceea ce a dus la impartirea opticii generale in trei mari capitole:
+
+Optica geometrica studiaza fenomenele luminoase, in special de reflexie si de refractie, pe baza notiunii de raza de lumina care se propaga rectiliniu in medii omogene. Optica geometrica face abstractie de natura luminii.
+
+Optica ondulatorie studiaza evenimente cum sunt difractia, interferenta si polarizarea luminii.
+Aceste fenomene se bazeaza pe caracterul ondulatoriu al radiatiei luminoase.
+Optica fotonica studiaza evenimentele implicate de caracterul corpuscular al luminii, in special efectul fotoelectric.

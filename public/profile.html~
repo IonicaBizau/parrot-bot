@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>Login with Github - TEMPLATE</title>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="js/client.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="loading">
+        <h2>Wait, please...</h2><br />
+        <img src="img/spinner.gif" style="width: 80px; height: 80px;">
+    </div>
+    
+    <div class="container">
+        <div id="success">
+            <h1 class="page-header">Hi again, <span class="name"> </span> <small id="subtext"> </small></h1>
+            <div class="row">
+                <div class="span2">
+                    <img id="avatar" class="thumbnail" alt="260x180" style="width: 80px; height: 80px;" src="">
+                </div>
+                <div class="span10">
+                    <h2><span class="username"> </span></h2>
+                    <p><span class="email"> </span></p>
+                    <p><span class="blog"> </span></p>
+                    <p><span class="location"> </span></p>
+                </div>
+            </div>
+            
+            <a href="/logout">
+                <input type="button" class="btn btn-large btn-primary" value="Logout" />
+            </a>      
+        </div>
+        
+        <div id="error">
+            <h1 class="page-header">Error...</h1>
+            <h2 class="message"> </h2>
+            
+            <a href="/login/github">
+                <input type="button" class="btn btn-large btn-primary" value="Login with Github" />
+            </a>        
+    
+            <a href="/login/bitbucket">
+                <input type="button" class="btn btn-large btn-primary" value="Login with Bitbucket" />
+            </a>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

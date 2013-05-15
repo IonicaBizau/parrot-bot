@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome!</title>
+        <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <script src="/js/jquery.min.js" type="text/javascript"></script>
+        <script src="/js/client.js" type="text/javascript"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="page-header">Bine ați venit la robotul fizician!</h1>
+            <p>...pentru că <i>"Inteligența artificială nu va întrece niciodată prostia nativă."</i></p>
+            
+            <label>
+                VORBEȘTE: <input id="talk" type="checkbox"/>
+            </label>
+            
+            <div class="input-append">
+                <input id="message" type="text" placeholder="Mesajul tău." />
+                <button class="btn btn-send btn-primary"><i class="icon-play icon-white"></i> Trimite</button>
+            </div>
+            
+            <pre class="console">> Fii tu primul care incepe conversația.</pre>
+        </div>
+        <div class="player-container"></div>
+    </body>
+</html>
