@@ -1,28 +1,70 @@
+var conversations = {
+    "possible": [
+        ".human-robot",
+        ".robot-robot",
+        ".robot-teacher"
+    ],
+    "active": ".human-robot"
+};
+
 $(document).ready(function() {
-    // TODO Replace click function with on.
-    $(".btn-send").click(function() {
+    $(".btn-send").on("click", function() {
         sendMessage();
     });
     
-    $("#message").keyup(function(e) {
-        // Pressed enter
-        if (e.keyCode === 13) {
-            sendMessage();
-        }
+    $(".btn-clear-cache").on("click", function () {
+        clearCache();
     });
+
+    setKeyUp();
+
+    $(".expander-title").on("click", function () {
+        var conversation = $(this).next();
+        conversation.slideToggle("slow", function () {
+            var display = conversation.css("display"); 
+            if (display !== "none") {
+                conversations.active = "." + conversation.parent().attr("data-section");
+            }
+            else {
+                conversations.active = "";
+            }
+        });
+    });
+
+    addUIMessage(".robot", "Salut.");
 });
 
+function setKeyUp () {
+    for (var i in conversations.possible) { 
+        $(conversations.possible[i]).find(".message").on("keyup", function(e) {
+            // pressed enter
+            if (e.keyCode === 13) {
+                sendMessage();
+            }
+        });
+    }
+}
+
+var loading = {
+    start: function () {
+        $(conversations.active).find(".loading").fadeIn();
+    },
+    stop: function () {
+        $(conversations.active).find(".loading").fadeOut();
+    }
+}
+
 function sendMessage() {
-    var messageToSend = $("#message").val();
+    var textBox = $(conversations.active).find(".message");
+    var messageToSend = textBox.val();
+    textBox.val("");
 
-    $.post("/insert", messageToSend, function (data) {
-        addUIMessage("Human", messageToSend);
-        getAnswer(messageToSend);
+    addUIMessage(".human", messageToSend);
+    getAnswer(messageToSend);
 
-        if (messageToSend[messageToSend.length - 1] === "?") {
-            addUIMessage("", "Robotul își formulează răspunsul...");
-        }
-    });
+    if (messageToSend[messageToSend.length - 1] === "?") {
+        addUIMessage(".loading", "Robotul își formulează răspunsul...");
+    }
 }
 
 function getAnswer(message) {
@@ -34,8 +76,14 @@ function getAnswer(message) {
         "talk": talk 
     };
 
+    if (message[message.length - 1] === "?") {
+        loading.start();
+    }
+
     $.post("/get", JSON.stringify(dataToSend), function (data) {
         
+        loading.stop();
+    
         if (!data) { return; }
         try { JSON.parse(data); } catch(e) { return; }
 
@@ -45,7 +93,7 @@ function getAnswer(message) {
         var message = data.message;
 
         if (!message) { return; }
-        addUIMessage("Robot", data.message);
+        addUIMessage(".robot", data.message);
 
         if (!mp3Link) { return; }
         var embedPlayer = '<embed src="' + mp3Link + '"' +
@@ -57,6 +105,16 @@ function getAnswer(message) {
     });
 }
 
-function addUIMessage(user, message) {
-    $(".console").prepend("\n" + user + (user ? ": ": "") + message);
+function addUIMessage(type, message) {
+    if (!message) { return; }
+    var row = $(".templates").find(type).clone().removeClass(type);
+   
+    row.find(".message-text").text(message).hide().fadeIn();
+    var active = $(conversations.active);
+    active.find(".loading").before(row);
+    active.find(".messages").animate({scrollTop: $(".messages").prop("scrollHeight")}, 500);
+}
+
+function clearCache(callback) {
+    $.get("/clearCache", callback);
 }

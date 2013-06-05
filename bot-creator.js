@@ -6,11 +6,31 @@
 var Mongo = require("mongodb");
 var http = require("http");
 
-exports.ChatterBot = function () {
+// Debug messages
+levels = {
+    "info":     ["\033[90m", "\033[39m"], // grey
+    "error":    ["\033[31m", "\033[39m"], // red
+    "exit":     ["\033[35m", "\033[39m"], // magenta
+    "warning":  ["\033[36m", "\033[39m"]  // cyan
+};
+
+// The constructor for robot
+exports.ChatterBot = function (debug) {
+
+    function printInConsole (message, level) {
+        level = level || "info";
+
+        console.log(levels[level][0] + message + levels[level][1]);
+    }
+
+    if (!debug) { printInConsole = function (mess) {}; }
 
     var config;
     var collection;
     var CACHE;
+
+    // TODO Is it possible to prevent to make it global?
+    var dataBase;
 
     /*
      *  Sets the config of the robot.
@@ -34,17 +54,21 @@ exports.ChatterBot = function () {
             var server = Mongo.Server("127.0.0.1", 27017);
             var db = new Mongo.Db(name, server, { safe: true });
 
+            dataBase = db;
+
             db.open(function(err, db) {
                 if (err) {
-                    callback("Error while opening database.");
-                    process.exit(1);
+                    var message = "Error while opening database. " + JSON.stringify(err);
+                    printInConsole(message, "exit");
+                    return callback(message);
                 }
                 
                 db.collection(col, function(err, col) {
                     
                     if (err) {
-                        callback("Error while finding collection. " + JSON.stringify(err));
-                        process.exit(2);
+                        var message = "Error while finding collection. " + JSON.stringify(err);
+                        printInConsole(message, "exit");
+                        return callback(message);
                     }
                     
                     callback(null, col);
@@ -61,6 +85,8 @@ exports.ChatterBot = function () {
             +=========================+
         */
         "getWordsFromMessage": function (message) {
+
+            if (!message) return [];
 
             var words = message.split(" ");
             var wordsToSend = [];
@@ -86,13 +112,18 @@ exports.ChatterBot = function () {
             return message;
         },
         // Get duplicate message
-        "getFailMessage": function (type) {
-            var message = config.duplicate.messages[type][Math.floor(Math.random() * config.duplicate.messages[type].length)];
+        "getDuplicateMessage": function (type) {
+            var duplicateMessages = config.duplicate.messages;
+            printInConsole(duplicateMessages);
+            var message = duplicateMessages[type][Math.floor(Math.random() * duplicateMessages[type].length)];
+            printInConsole(" * " + message);
             return message;
         },
         // Get message type
         "getMessageType": function (message) {
             
+            if (!message) { return "A"; }
+
             // The message contains "?"
             if (message.indexOf("?") !== -1) {
 
@@ -106,7 +137,6 @@ exports.ChatterBot = function () {
             
             return "A";
         },
-
         // Remove diacritics from message
         "removeDiacritics": function (message) {
 
@@ -118,7 +148,6 @@ exports.ChatterBot = function () {
 
             return message; 
         },
-
         "setConfig": function (configObject, callback) {
             try {
                 JSON.parse(JSON.stringify(configObject));
@@ -131,8 +160,12 @@ exports.ChatterBot = function () {
 
             configObject.meta = configObject.meta || {};
 
-            if (configObject.cache) { CACHE = true } 
-
+            if (configObject.cache) { 
+                CACHE = true; 
+                printInConsole("Cache is true."); 
+                configObject.temp = {};
+                configObject.temp.cache = configObject.cache;
+            } 
             // This will come from the place where is created the robot
             // configObject.cache = {
             //     "received": {
@@ -151,7 +184,7 @@ exports.ChatterBot = function () {
 
             init.database(config.database.name, config.database.collection, function (err, col) {
                 
-                if (err) { console.log(err) }
+                if (err) { return callback(err); }
 
                 collection = col;
                 callback(null, config);
@@ -161,87 +194,155 @@ exports.ChatterBot = function () {
         "getConfig": function (callback) {
             callback(null, config);
         },
-        // Extending memory...
-        "insertMessage": function (message, callback) {
-           
-            if (!collection) { return callback("Collection isn't set yet."); }
-            if (!message) { return callback(); }
-            if (config.fail.messages.indexOf(message) !== -1) { return callback(null, null) }
+        ///////////////////////////////////////
+        // GET ANSWER: THE MOST IMPORTANT    //
+        // FUNCTION OF THE ROBOT             //
+        // The message is passed and in      //
+        // the callback the second argument  //
+        // is the answer of the robot        //
+        ///////////////////////////////////////
+        "getAnswer": function (message, callback) {
+            printInConsole("Messege received: " + message, "exit");
             
+            if (!collection) { return callback("Collection isn't set yet."); }
+            // if (!message) { return callback(); }
+            // Don't insert fail messages in database.
+            // if (config.fail.messages.indexOf(message) !== -1) { return callback(null, null) }
+           
+
+            ///////////////////////////////
+            // IS THIS A DUPLICATE MESSAGE?
+            ///////////////////////////////
             var duplicate = true;
             var regexArray = [];
             var words = init.getWordsFromMessage(message);
 
-            for (var i in words) {
-                regexArray.push(new RegExp("^" + words[i]));
+            printInConsole("Found " + words.length + " words: " + JSON.stringify(words), "exit");
+            for (var i in words) { 
+                printInConsole("Adding " + words[i], "exit");
+                var item = new RegExp("^" + words[i]);
+                printInConsole("> Item: " + item, "error");
+                regexArray.push(item); 
             }
+           
+            printInConsole("--------------------------", "warning");
+            printInConsole("A new message to filter...", "warning");
+            printInConsole("Message: " + message, "warning");
+            printInConsole("Words: " + JSON.stringify(words), "warning");
+            printInConsole("RegexArray:", "warning");
+            printInConsole(regexArray, "error");
 
-            collection.find({"meta": {$all: regexArray}}).toArray(function (err, docs) {
-                
+            // Find docs with these words
+            collection.find({ "meta": { $all: regexArray }}).toArray(function (err, docs) {
+               
+                printInConsole("Found " + docs.length + " docs");
+
                 if (err) { return callback(err); }
                 if (!docs || !docs.length) { duplicate = false; }
 
+                // Search in each document the words.
                 for (var i in docs) {
                     for (var word in docs[i].meta) {
-                        if (words.indexOf(docs[i].meta[word]) === -1) {
+                        // If ONE word is NOT duplicated, then 
+                        // the message isn't duplicated
+                        var keyword = docs[i].meta[word];
+/* NOT DUPPLICATED! ->*/if (words.indexOf(keyword) === -1 && config.meta.ignore.indexOf(keyword) === -1) {
                             duplicate = false;
+                            break;
                         }
                     }
                 }
-            
-                if (duplicate) { console.log("... :-)"); return callback(); }
 
+                printInConsole("> Duplicate: " + duplicate, "warning");
+
+                // Prepare object to insert
                 var objectToInsert = init.processMessageToInsert(message);
                 
-                if (CACHE) {
-                    config.cache.received[objectToInsert.type].push(objectToInsert.message);
-                }
+                // If the message is NOT duplicated, insert it.
+                if (!duplicate && objectToInsert.message) {
+                    collection.insert(objectToInsert, function (err, insertedDoc) {
+                        if (err) { return printInConsole(err, "error"); }
 
-                collection.insert(objectToInsert, callback);
-            });
-
-        },
-        // Get message
-        "getMessage": function (message, callback) {
-
-            init.processMessageToSend(message, function (err, message) {
-
-                if (err) { return callback(err); }
-
-                // If no message, return a question
-                if (!message) {
-                    collection.find({ "type": "Q"}).toArray(function (err, docs) {
-
-                        if (err) {
-                            return callback(err);
-                        }
-
-                        if (!docs || !docs.length) {
-
-                            return callback(null, init.getFailMessage());
-                            // return callback(null, "");
-                        }
-
-                        var messageToSend;
-                        messageToSend = docs[Math.floor(Math.random() * docs.length)].message;
-                         
-                        if (CACHE && config.cache.send["Q"].indexOf(messageToSend)) {
-                            messageToSend = 
-                        }
-
-                        if (CACHE) { config.cache.sent["Q"].push(messageToSend); }
-
-                        callback(null, messageToSend);
+                        printInConsole("Inserted successfully a new message in database.", "exit");
                     });
-
-                    return;
                 }
 
-                if (CACHE) { config.cache.sent["A"].push(message); }
+                // Message to insert data
+                var messageData = init.processMessageToInsert(message);
+                var messageToSend = "";
 
-                callback(null, message);
+                if (messageData.message) {
+                    if (CACHE && config.cache.received[messageData.type].indexOf(messageData.message) !== -1) {
+                        messageToSend = init.getDuplicateMessage("human");
+                        return callback(null, messageToSend);
+                    }
+                    else
+                    if (CACHE) { config.cache.sent["A"].push(message); }
+                }
+                
+                if (CACHE) { config.cache.received[messageData.type].push(messageData.message); }
+
+                var messageReceived = init.processMessageToInsert(message);   
+
+                // Process messages to send
+                init.processMessageToSend(message, function (err, message) {
+
+                    if (err) { return callback(err); }
+
+                    printInConsole("Message: " +  message);
+
+                    if (message === "<!>") {
+                        printInConsole("Returning an empty string.", "warning");
+                        callback(null, "");
+                        return;
+                    }
+
+                    if (message === "<A>") {
+                        callback(null, init.getFailMessage());
+                        return;
+                    }
+
+                    if (!message) {
+                        collection.find({ "type": "Q"}).toArray(function (err, docs) {
+
+                            if (err) { return callback(err); }
+                            // No questions found.
+                            if (!docs || !docs.length) { 
+                                printInConsole("No docs found");
+
+                                callback(null, init.getFailMessage()); 
+                            }
+
+                            messageToSend = docs[Math.floor(Math.random() * docs.length)].message;
+
+                            if (CACHE && config.cache.sent["Q"].indexOf(messageToSend) !== -1) {
+                                messageToSend = init.getDuplicateMessage("bot");
+                            }
+                            else
+                            if (CACHE) { config.cache.sent["Q"].push(messageToSend); }
+
+                            callback(null, (messageReceived.type === "Q" ? "<%>" : "") + messageToSend);
+                        });
+
+                        return;
+                    }
+
+                    if (messageReceived.message)
+                    if (CACHE && config.cache.received[messageReceived.type].indexOf(messageReceived.message) !== -1) {
+                        messageToSend = init.getDuplicateMessage("human");
+                    }
+                    else
+                    if (CACHE && config.cache.sent["A"].indexOf(message) !== -1) {
+                        message = init.getDuplicateMessage("human");
+                    }
+                    else
+                    if (CACHE) { config.cache.sent["A"].push(message); }
+
+                    callback(null, message);
+                });
             });
         },
+
 
         /*
             +==============================================+
@@ -269,20 +370,45 @@ exports.ChatterBot = function () {
 
             return dataToInsert;
         },
-
         ///////////////////////////////////
         // PROCESSING ANSWER TO SEND     //
         // Searching for best answer ;-) //
         ///////////////////////////////////
         "processMessageToSend": function (message, callback) {
-          
+            
+            printInConsole("Message: " + message, "info");
+
             // First try to five an answer {type:"A"}
             var words = init.getWordsFromMessage(message);
-            
+           
+            if (!message || !words || !words.length) {
+
+                collection.find({ "type": "Q" }).toArray(function(err, docs) {
+                    if (err) { return callback(err); }
+                    if (!docs || !docs.length) { return callback(null, init.getFailMessage()); }
+                
+                    var l = docs.length;
+                    var randQuestion = (docs[Math.floor(Math.random() * l)]).message;
+                    if (!randQuestion) { return callback(null, init.getFailMessage()); }
+
+                    if (CACHE && config.cache.sent["Q"].indexOf(randQuestion) !== -1) {
+                        randQuestion = init.getDuplicateMessage("bot");
+                    }
+                    else
+                    if (CACHE) { config.cache.sent["Q"].push(randQuestion); }
+
+                    callback(null, randQuestion);
+                });
+                return;
+            }
+
             // If the message is an answer, return a question
             if (init.getMessageType(message) === "A") {
-                return callback(null, "");
+                printInConsole("The message is an answer or an affirmation.", "info");
+                return callback(null, "<!>");
             }
+            
+            printInConsole("The message is a question.", "info");
             
             // The message is a question for robot, find answers.
             collection.find({ "type": "A" }).toArray(function(err, docs) {
@@ -321,7 +447,8 @@ exports.ChatterBot = function () {
                     }
 
                     var bestAnswers = filter[max] || [];
-                    var answer = (bestAnswers[Math.floor(Math.random() * bestAnswers.length)] || {}).message || "";
+                    
+                    var answer = (bestAnswers[Math.floor(Math.random() * bestAnswers.length)] || {}).message || "<A>";
                     callback(null, answer);
 
                     return;
@@ -330,7 +457,48 @@ exports.ChatterBot = function () {
                 // Answer not found, return a question
                 calback(null, "");
             });
+        },
+        "clearCache": function (callback) {
+            if (!CACHE) { return callback("Cache has to be enabled."); } 
+            config.cache = config.temp.cache;
+            callback(null, "Successfully cleared cache.");
+        },
+        "remove": function (filters, options, callback) {
+            if (!filters) { return callback("Missing filters object."); }
+            
+            if (typeof options === "function") {
+                callback = options;
+                options = {};
+            }
+
+            collection.remove(filters, options, callback);
+        },
+        "duplicateMemory": function (colOne, colTwo, callback) {
+
+            printInConsole("Preparing to duplicate " + colOne + " in "+ colTwo + ".", "warning");
+
+            dataBase.collection(colOne, function(err, col) {
+                if (err) { return callback(err); } 
+
+                col.find().toArray(function (err, data) {
+                    if (err) { return callback(err); } 
+                
+                    printInConsole("Clonning " + colOne, "warning");
+                    
+                    dataBase.collection(colTwo, function (err, col) {
+                        if (err) { return callback(err); } 
+                        
+                        printInConsole("Inserting " + data.length + " documents in " + colTwo, "warning");
+                        col.insert(data, function (err, result) {
+                            if (err) { return callback(err); } 
+                            
+                            callback(null, result);
+                        });
+                    });
+                });
+            });
         }
     };
+
     return init;
 };

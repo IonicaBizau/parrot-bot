@@ -1,27 +1,138 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <title>Welcome!</title>
         <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/bubbles.css" rel="stylesheet">
         <script src="/js/jquery.min.js" type="text/javascript"></script>
         <script src="/js/client.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
     <body>
+        <div class="templates">
+            <div class="row human">
+                <div class="span10">
+                    <p class="bubble-right b-r-large message-text text-white text-left"></p>
+                </div>
+                <div class="c-span2">
+                    <img class="avatar" src="/img/human.png">
+                </div>
+            </div>
+            <div class="row robot">
+                <div class="span10">
+                    <p class="bubble-right b-r-large message-text text-white text-left"></p>        
+                </div>
+                <div class="c-span2">
+                    <img class="avatar" src="/img/robot.png">
+                </div>
+            </div>
+        </div>
         <div class="container">
-            <h1 class="page-header">Bine ați venit la robotul fizician!</h1>
-            <p>...pentru că <i>"Inteligența artificială nu va întrece niciodată prostia nativă."</i></p>
-            
-            <label>
-                VORBEȘTE: <input id="talk" type="checkbox"/>
-            </label>
-            
-            <div class="input-append">
-                <input id="message" type="text" placeholder="Mesajul tău." />
-                <button class="btn btn-send btn-primary"><i class="icon-play icon-white"></i> Trimite</button>
+            <h1 class="logo">Robotelul fizician!</h1>
+           
+            <!-- Dialogul om-robot -->
+            <div data-section="human-robot" class="mg10 human-robot chat-section chat-section-red">
+                <div class="row expander-title">
+                    <div class="span8">
+                        <h1>Dialogul robot - om</h1>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="messages">
+                        <div class="loading">
+                            <img src="/img/spinner.gif">
+                            <p>Robotul își formulează răspunsul.</p>
+                        </div>
+                    </div>
+                    <div class="row send-message-form">
+                        <div class="span9">
+                            <input class="message" type="text" placeholder="Mesajul tău." />
+                            <label>Vorbește (doar dacă e conectat la <strong>Internet</strong>): <input id="talk" type="checkbox"/></label>
+                        </div>
+                        <div class="span2">
+                            <button class="btn btn-send btn-primary"><i class="icon-play icon-white"></i> Trimite</button>
+                            <button class="btn btn-clear-cache btn-primary"><i class="icon-trash icon-white"></i> Șterge cache-ul</button>
+                        </div>
+                    </div> 
+                </div>
             </div>
             
-            <pre class="console">> Fii tu primul care incepe conversația.</pre>
+            <!-- Dialogul robot-robot -->
+            <div data-section="robot-robot" class="mg10 robot-robot chat-section chat-section-orange">
+                <div class="row expander-title">
+                    <div class="span8">
+                        <h1>Dialogul robot - robot</h1>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="messages">
+                        <div class="loading">
+                            <img src="/img/spinner.gif">
+                            <p>Se așteaptă răspunsul.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Robotul profesor -->
+            <div data-section="robot-teacher" class="mg10 robot-teacher chat-section chat-section-yellow">
+                <div class="row expander-title">
+                    <div class="span8">
+                        <h1>Robotul profesor</h1>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <h1>TODO!</h1>
+                </div>
+            </div>
+           
+            <!-- Despre -->
+            <div class="mg10 chat-section chat-section-green">
+                <div class="row expander-title">
+                    <div class="span8">
+                        <h1>Despre acest robot</h1>
+                    </div>
+                </div>
+                <div class="section-body">
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                </div>
+            </div>
+            
+            <!-- Ajutor -->
+            <div class="mg10 chat-section chat-section-blue">
+                <div class="row expander-title">
+                    <div class="span8">
+                        <h1>Ajutor</h1>
+                    </div>
+                </div>
+                <div class="section-body">
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                </div>
+            </div>
+            
+            <!-- Contact -->
+            <div class="mg10 chat-section chat-section-indigo">
+                <div class="row expander-title">
+                    <div class="span8">
+                        <h1>Contact</h1>
+                    </div>
+                </div>
+                <div class="section-body">
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                    </p>Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet. Lorem ipsum dolor sit avet.</p>
+                </div>
+            </div>
+            
+            <div class="mg10 well well-large" align="center">
+                <p>Copyright © 2013 Ionică Bizău</p>
+            </div>
         </div>
         <div class="player-container"></div>
     </body>
