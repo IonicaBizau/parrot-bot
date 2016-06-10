@@ -3,7 +3,7 @@ var Creator = require("./bot-creator");
 var Bot1 = Creator.ChatterBot();
 var Bot2 = Creator.ChatterBot();
 
-var config1 = {
+var config1 = { 
     "fail": {
         "messages": [
             "Nu stiu ca sa raspund la acest messaj.",
@@ -44,7 +44,7 @@ var config1 = {
     }
 };
 
-var config2 = {
+var config2 = { 
     "fail": {
         "messages": [
             "Eu sunt cel mai neajutorat robot. Trebuie sa ma înveți de la zero. Mie îmi poți „turna cu pâlnia...”, pentru că eu nu sunt om.",
@@ -83,9 +83,9 @@ var config2 = {
 
 // Set config for BOT1
 Bot1.setConfig(config1, function (err) {
-
+    
     if (err) { console.log("FATAL ERROR: " + err); process.exit(1); }
-
+    
     // duplicateMemory collection for BOT1
     Bot1.duplicateMemory("messages", "messages_two", function (err, data) {
         if (err) { console.log("Warning: " + err); }
@@ -97,7 +97,7 @@ Bot1.setConfig(config1, function (err) {
 
             // duplicateMemory collection for BOT2
             Bot2.duplicateMemory("messages", "messages_three", function (err, data) {
-
+        
                 if (err) { console.log("Warning: " + err); }
                 else console.log("Sucessfully duplicate memoryd database: " + data.length + " documents.");
 
@@ -105,7 +105,7 @@ Bot1.setConfig(config1, function (err) {
 
                 // start
                 setTimeout(function () {
-                    start("Ce este reflexia luminii?");
+                    start("Ce este reflexia luminii?"); 
                 }, 1000);
             });
         });
@@ -115,7 +115,7 @@ Bot1.setConfig(config1, function (err) {
 var robot1 = true;
 
 function start(message) {
-
+    
     if (!message) { message = Bot2.getFailMessage(); }
 
     // Fail message + question
@@ -127,19 +127,19 @@ function start(message) {
     else {
         console.log("Robot2 > " + message);
     }
-
+    
     var failMessages1 = config1.fail.messages;
     var failMessages2 = config2.fail.messages;
-
+    
     // It's a fail message
     if (failMessages1.indexOf(message) > -1 || failMessages2.indexOf(message) > -1) {
-        message = "";
+        message = ""; 
     }
 
     Bot1.getAnswer(message, function(err, message) {
         if (err) { console.log("> Eroare: ", err); process.exit(1); }
         if (!message) { message = Bot1.getFailMessage(); }
-
+            
         // Fail message + question
         if (message.indexOf("<%>") !== -1) {
             message = message.replace("<%>", "");
@@ -149,21 +149,21 @@ function start(message) {
         else {
             console.log("Robot1 > " + message);
         }
-
+        
         var failMessages1 = config1.fail.messages;
         var failMessages2 = config2.fail.messages;
-
+        
         // It's a fail message
         if (failMessages1.indexOf(message) > -1 || failMessages2.indexOf(message) > -1) {
-            message = "";
+            message = ""; 
         }
 
         setTimeout(function () {
 
             Bot2.getAnswer(message, function (err, message) {
-
+                
                 if (err) { console.log("> Eroare: ", err); process.exit(1); }
-
+                
                 setTimeout(function () {
                     start(message);
                 }, 3000);
