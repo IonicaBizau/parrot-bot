@@ -52,15 +52,15 @@ db.open(function(err, db) {
         console.log("Error while opening database.");
         process.exit(1);
     }
-    
+
     console.log("Finding collection.");
     db.collection("messages", function(err, col) {
-        
+
         if (err) {
             console.log("Error while finding collection. " + JSON.stringify(err));
             process.exit(2);
         }
-        
+
         console.log("Collection found.");
         collection = col;
     });
@@ -68,7 +68,7 @@ db.open(function(err, db) {
 
 // Extending memory...
 exports.insertMessage = function (message, callback) {
-   
+
     if (!collection) { return callback("Collection isn't setted yet."); }
     if (!message) { return callback(); }
 
@@ -85,7 +85,7 @@ exports.insertMessage = function (message, callback) {
 exports.getMessage = function (message, callback) {
 
     processMessageToSend(message, function (err, message) {
-        
+
         if (err) { return callback(err); }
 
         // If no message, return a question
@@ -104,7 +104,7 @@ exports.getMessage = function (message, callback) {
                 var messageToSend;
                 messageToSend = docs[Math.floor(Math.random() * docs.length)].message;
                 var search = true;
-                
+
                 while (cache.Q.indexOf(messageToSend && search) !== -1) {
                     messageToSend = docs[Math.floor(Math.random() * docs.length)].message;
                 }
@@ -135,7 +135,7 @@ exports.getMessage = function (message, callback) {
 // What can be more interesting? //
 ///////////////////////////////////
 function processMessageToInsert(message) {
-    
+
     var dataToInsert = {
         "type": "",
         "message": message,
@@ -144,15 +144,15 @@ function processMessageToInsert(message) {
 
     // We have here a extend memory process
 //    for (var i in botConfig.extend.value) {
-//        
+//
 //        if (message.toLowerCase().indexOf(botConfig.extend.value[i])) {
 //
 //            var firstSelector = message.indexOf(botConfig.extend.selectors);
 //            var lastSelector = message.lastIndexOf(botConfig.extend.selectors);
-//            
+//
 //            if (firstSelector !== lastSelector && firstSelector !== -1 && lastSelector !== -1) {
 //                message = message.substring(firstSelector, lastSelector);
-//                
+//
 //                // Success!
 //                if (message) {
 //                    dataToInsert.message = message;
@@ -175,7 +175,7 @@ function processMessageToInsert(message) {
 // Searching for best answer ;-) //
 ///////////////////////////////////
 function processMessageToSend(message, callback) {
-  
+
     // First try to five an answer {type:"A"}
     var words = getWordsFromMessage(message);
     var regExpArray = [];
@@ -195,7 +195,7 @@ function processMessageToSend(message, callback) {
     collection.find({ "type": "A" }).toArray(function(err, docs) {
 
         if (err) { return callback(err); }
-        
+
         var filter = {};
         var max = 0;
 
@@ -206,7 +206,7 @@ function processMessageToSend(message, callback) {
 
                 var why = [];
 
-                // Scanning current doc 
+                // Scanning current doc
                 var power = 0;
                 for (var word in words) {
                     if (docs[doc].meta.indexOf(words[word]) !== -1) {
@@ -294,7 +294,7 @@ function getFailMessage () {
 
 // Get message type
 function getMessageType (message) {
-    
+
     // The message contains "?"
     if (message.indexOf("?") !== -1) {
 
@@ -305,7 +305,7 @@ function getMessageType (message) {
 
         return "Q";
     }
-    
+
     return "A";
 }
 
@@ -318,5 +318,5 @@ function removeDiacritics(message) {
     message = message.replace(/ș/g, "s");
     message = message.replace(/î/g, "i");
 
-    return message; 
+    return message;
 }
