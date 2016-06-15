@@ -1,12 +1,20 @@
 {
   "name": "node-login",
   "version": "0.0.1",
+  "main": "lib/index.js",
   "dependencies": {
     "asyncjs": ">=0.0.5",
     "bitbucket-api": "*",
+    "bug-killer": "^4.2.3",
+    "deasync": "^0.1.7",
+    "deffy": "^2.2.2",
+    "diacritics": "^1.2.3",
     "mongodb": "*",
+    "mongoose": "^4.5.0",
     "node-static": "*",
+    "noop6": "^1.0.2",
     "oauth": ">=0.9.0",
+    "prompt": "^1.0.0",
     "request": "*",
     "ul": "^5.2.2"
   }
