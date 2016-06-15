@@ -5,6 +5,9 @@ const Parrot = require("..");
 // Create a new bot
 let bot = new Parrot("en");
 
+// Catch the error
+bot.on("error", err => console.error(err));
+
 // Try to solve this planet's problems
 console.log(bot.tellSync("How many people are ion the world?"));
 // => I don't know to answer this question.
