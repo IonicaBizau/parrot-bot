@@ -5,7 +5,7 @@ var fs = require("fs");
 
 var Bot = new Creator.ChatterBot(true);
 
-var config = {
+var config = { 
     "fail": {
         "messages": [
             "Nu stiu ca sa raspund la acest mesaj.",
@@ -57,11 +57,11 @@ Bot.setConfig(config, function (err, data) {
 });
 
 setTimeout(function () {
-
+    
     console.log("Reading file.");
-
+    
     fs.readFile("./data/fizica.txt", function (err, text) {
-
+       
         if (err) { return console.log("Error reading ./data/fizica.") };
 
         var messages = text.toString().match( /[^\.!\?]+[\.!\?]+/g );
