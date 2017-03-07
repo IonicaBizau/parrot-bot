@@ -40,5 +40,17 @@
   "bugs": {
     "url": "https://github.com/IonicaBizau/parrot-bot/issues"
   },
-  "homepage": "https://github.com/IonicaBizau/parrot-bot#readme"
+  "homepage": "https://github.com/IonicaBizau/parrot-bot#readme",
+  "dependencies": {
+    "bug-killer": "^4.4.2",
+    "deasync": "^0.1.9",
+    "deffy": "^2.2.2",
+    "diacritics": "^1.3.0",
+    "map-o": "^2.0.5",
+    "mongoose": "^4.8.6",
+    "noop6": "^1.0.4",
+    "promptify": "^1.0.1",
+    "ul": "^5.2.9",
+    "unique-random-array": "^1.0.0"
+  }
 }
