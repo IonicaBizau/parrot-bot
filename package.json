@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/IonicaBizau/parrot-bot#readme",
   "dependencies": {
+    "abs": "^1.3.6",
     "bug-killer": "^4.4.2",
     "deasync": "^0.1.9",
     "deffy": "^2.2.2",
@@ -49,7 +50,9 @@
     "map-o": "^2.0.5",
     "mongoose": "^4.8.6",
     "noop6": "^1.0.4",
+    "prompt": "^1.0.0",
     "promptify": "^1.0.1",
+    "read-utf8": "^1.2.5",
     "ul": "^5.2.9",
     "unique-random-array": "^1.0.0"
   }

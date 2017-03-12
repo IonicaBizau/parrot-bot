@@ -2,6 +2,8 @@
 
 const Parrot = require("..")
     , prompt = require('prompt')
+    , abs = require("abs")
+    , readFile = require("read-utf8")
     ;
 
 // Create a new bot
@@ -19,12 +21,20 @@ let commands = {
     }
   , clear_cache: () => bot.clearCache()
   , "new": (name, lang) => {
-        try {
-            bot = new Parrot(lang, { name: name });
-            console.log(`Now you're talking to ${name}.`);
-        } catch (e) {
-            console.log(e);
-        }
+        bot = new Parrot(lang, { name: name });
+        console.log(`Now you're talking to ${name}.`);
+    }
+  , import: filename => {
+        const lines = readFile(abs(filename)).split("\n");
+        console.log(`Importing ${lines.length} messages.`);
+        lines.forEach((c, index) => {
+            if (index % 500 === 0) {
+                console.log(`${index}/${lines.length}`);
+            }
+            bot.tellSync(c);
+        });
+        commands.clear_cache();
+        console.log("Done.");
     }
 };
 
@@ -79,7 +89,7 @@ console.log(`
           Kills the current robot. This will not
           delete their memory.
 
-        /clearCache
+        /clear_cache
           Clears the current robot internal cache.
 
     By default, you're talking to Alice.
@@ -89,4 +99,6 @@ console.log(`
                         E n j o y !
 `);
 
-doAsync();
+bot.on("connected", () => {
+    doAsync();
+});
