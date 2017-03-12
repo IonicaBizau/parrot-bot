@@ -1,11 +1,16 @@
 "use strict";
 
 const Parrot = require("..")
-    , prompt = require('promptify')
+    , prompt = require('prompt')
     ;
 
 // Create a new bot
 let bot = new Parrot("en");
+
+prompt.colors = false;
+prompt.delimiter = "";
+prompt.message = ""
+prompt.start();
 
 let commands = {
     die: () => {
@@ -21,6 +26,29 @@ let commands = {
             console.log(e);
         }
     }
+};
+
+let doAsync = () => {
+    prompt.get(">", (err, result) => {
+        if (err) { return console.error(err); }
+
+        result = result[">"];
+        if (result.startsWith("/")) {
+            let com = result.substring(1).split(" ");
+            if (commands[com[0]]) {
+                commands[com[0]].apply(this, com.slice(1));
+            } else {
+                console.log(`Invalid command: ${result}. Available commands are: ${Object.keys(commands).join(", ")}`);
+            }
+            return doAsync();
+        }
+
+        bot.tell(result, (err, data) => {
+            if (err) { return console.error(err); }
+            data && console.log(data);
+            doAsync();
+        });
+    });
 };
 
 console.log(`
@@ -61,16 +89,4 @@ console.log(`
                         E n j o y !
 `);
 
-let prompted = null;
-while (prompted = prompt(">", { delimiter: " " })) {
-    if (prompted.startsWith("/")) {
-        let com = prompted.substring(1).split(" ");
-        if (commands[com[0]]) {
-            commands[com[0]].apply(this, com.slice(1));
-        } else {
-            console.log(`Invalid command: ${prompted}. Available commands are: ${Object.keys(commands).join(", ")}`);
-        }
-        return doAsync();
-    }
-    console.log(bot.tellSync(prompted));
-}
+doAsync();
