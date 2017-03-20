@@ -41,7 +41,6 @@ let commands = {
 let doAsync = () => {
     prompt.get(">", (err, result) => {
         if (err) { return console.error(err); }
-
         result = result[">"];
         if (result.startsWith("/")) {
             let com = result.substring(1).split(" ");
