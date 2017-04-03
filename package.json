@@ -55,5 +55,8 @@
     "read-utf8": "^1.2.5",
     "ul": "^5.2.9",
     "unique-random-array": "^1.0.0"
+  },
+  "blah": {
+    "h_img": "http://i.imgur.com/3hROjgZ.png"
   }
 }
