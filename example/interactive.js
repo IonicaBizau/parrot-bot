@@ -88,6 +88,9 @@ console.log(`
           Kills the current robot. This will not
           delete their memory.
 
+        /import <filename>
+          Imports the messages from a file.
+
         /clear_cache
           Clears the current robot internal cache.
 

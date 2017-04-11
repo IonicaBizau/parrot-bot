@@ -18,6 +18,7 @@ You can see below the API reference of this module.
 
 ### `getWordsFromMessage(message)`
 Gets the words from the message, ignoring the words that should be ignored (configuredin the bot config).
+
 #### Params
 - **String** `message`: The message to get the words from.
 
@@ -32,6 +33,7 @@ Returns a fail message (such as *I don't know how to answer*).
 
 ### `getDuplicateMessage(type)`
 Returns a message such as *Hey, you have already asked me this!*.
+
 #### Params
 - **String** `type`: The message type.
 
@@ -40,6 +42,7 @@ Returns a message such as *Hey, you have already asked me this!*.
 
 ### `getMessageType(message)`
 Returns the message type (question or answer).
+
 #### Params
 - **String** `message`: The message.
 
@@ -48,6 +51,7 @@ Returns the message type (question or answer).
 
 ### `removeDiacritics(message)`
 Removes the diacritics from the message.
+
 #### Params
 - **String** `message`: The message containing special characters.
 
@@ -62,14 +66,14 @@ Returns the config object.
 
 ### `tell(message, cb)`
 Tell something to the bot.
+
 #### Params
 - **String** `message`: The message to send to the bot.
 - **Function** `cb`: The callback function.
 
-### `NOT DUPPLICATED! ->()`
-
 ### `processMessageToInsert(message)`
 Parse the message and prepare the database record.
+
 #### Params
 - **String** `message`: The message to insert.
 
@@ -81,17 +85,20 @@ Parse the message and prepare the database record.
 
 ### `processMessageToSend(message, cb)`
 Answers a message, without remembering it.
+
 #### Params
 - **String** `message`: The message to answer to.
 - **Function** `cb`: The callback function.
 
 ### `clearCache(cb)`
 Clears the internal cache.
+
 #### Params
 - **Function** `cb`: The callback function.
 
 ### `remove(filters, options, cb)`
 Removes messages.
+
 #### Params
 - **Object** `filters`: The query filters.
 - **Object** `options`: The query options.
