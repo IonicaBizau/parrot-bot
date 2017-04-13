@@ -1,6 +1,6 @@
 {
   "name": "parrot-bot",
-  "description": "A simple and smart-enough bot you can chat with.",
+  "description": "A parrot-like bot you can talk with.",
   "keywords": [
     "parrot",
     "bot",
@@ -59,15 +59,21 @@
   "blah": {
     "h_img": "http://i.imgur.com/3hROjgZ.png",
     "description": [
-        { "h2": "Online demo" },
-        { "p": "You can talk to the Parrot, by visiting [`parrot.ionicabizau.net`](https://parrot.ionicabizau.net). See below how to use it." },
-        { "h2": "How it works" },
-        {
-            "p": [
-                "The *Parrot Bot* doesn't know anything in the beginning. *You* have to teach them to give answers. The answers you will eventually get from the bot will be your own words, hence the name: *Parrot Bot*. 🐦",
-                "Enjoy! :tada:"
-            ]
-        }
+      {
+        "h2": "Online demo"
+      },
+      {
+        "p": "You can talk to the Parrot, by visiting [`parrot.ionicabizau.net`](https://parrot.ionicabizau.net). See below how to use it."
+      },
+      {
+        "h2": "How it works"
+      },
+      {
+        "p": [
+          "The *Parrot Bot* doesn't know anything in the beginning. *You* have to teach them to give answers. The answers you will eventually get from the bot will be your own words, hence the name: *Parrot Bot*. 🐦",
+          "Enjoy! :tada:"
+        ]
+      }
     ]
   }
 }

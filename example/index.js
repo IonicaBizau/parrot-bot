@@ -13,7 +13,7 @@ console.log(bot.tellSync("How many people are ion the world?"));
 // => I don't know to answer this question.
 
 // Teach this robot, so next time we will know what to do
-console.log(bot.tellSync("There are 7 billion people on this planet."));
+bot.tellSync("There are 7 billion people on this planet.");
 
 // Ask him again
 console.log(bot.tellSync("How many people are ion the world?"));
