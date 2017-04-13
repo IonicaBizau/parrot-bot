@@ -5,7 +5,7 @@
 
  [![Support me on Patreon][badge_patreon]][patreon] [![Buy me a book][badge_amazon]][amazon] [![PayPal][badge_paypal_donate]][paypal-donations] [![Version](https://img.shields.io/npm/v/parrot-bot.svg)](https://www.npmjs.com/package/parrot-bot) [![Downloads](https://img.shields.io/npm/dt/parrot-bot.svg)](https://www.npmjs.com/package/parrot-bot)
 
-> A simple and smart-enough bot you can chat with.
+> A parrot-like bot you can talk with.
 
 ## Online demo
 
@@ -43,7 +43,7 @@ console.log(bot.tellSync("How many people are ion the world?"));
 // => I don't know to answer this question.
 
 // Teach this robot, so next time we will know what to do
-console.log(bot.tellSync("There are 7 billion people on this planet."));
+bot.tellSync("There are 7 billion people on this planet.");
 
 // Ask him again
 console.log(bot.tellSync("How many people are ion the world?"));
