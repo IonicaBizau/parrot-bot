@@ -11,6 +11,9 @@
 
 You can talk to the Parrot, by visiting [`parrot.ionicabizau.net`](https://parrot.ionicabizau.net). See below how to use it.
 
+
+[![](http://i.imgur.com/BLE5iI2.png)](https://parrot.ionicabizau.net)
+
 ## How it works
 
 The *Parrot Bot* doesn't know anything in the beginning. *You* have to teach them to give answers. The answers you will eventually get from the bot will be your own words, hence the name: *Parrot Bot*. 🐦
