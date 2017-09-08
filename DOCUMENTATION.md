@@ -5,6 +5,7 @@ You can see below the API reference of this module.
 ### `ParrotBot(config, options)`
 
 #### Params
+
 - **String|Object** `config`: The bot language or the bot config itself.
 - **Object** `options`: An object containing the following fields:
  - `database` (Object): The database configuration:
@@ -20,6 +21,7 @@ You can see below the API reference of this module.
 Gets the words from the message, ignoring the words that should be ignored (configuredin the bot config).
 
 #### Params
+
 - **String** `message`: The message to get the words from.
 
 #### Return
@@ -35,6 +37,7 @@ Returns a fail message (such as *I don't know how to answer*).
 Returns a message such as *Hey, you have already asked me this!*.
 
 #### Params
+
 - **String** `type`: The message type.
 
 #### Return
@@ -44,6 +47,7 @@ Returns a message such as *Hey, you have already asked me this!*.
 Returns the message type (question or answer).
 
 #### Params
+
 - **String** `message`: The message.
 
 #### Return
@@ -53,6 +57,7 @@ Returns the message type (question or answer).
 Removes the diacritics from the message.
 
 #### Params
+
 - **String** `message`: The message containing special characters.
 
 #### Return
@@ -68,6 +73,7 @@ Returns the config object.
 Tell something to the bot.
 
 #### Params
+
 - **String** `message`: The message to send to the bot.
 - **Function** `cb`: The callback function.
 
@@ -75,6 +81,7 @@ Tell something to the bot.
 Parse the message and prepare the database record.
 
 #### Params
+
 - **String** `message`: The message to insert.
 
 #### Return
@@ -87,6 +94,7 @@ Parse the message and prepare the database record.
 Answers a message, without remembering it.
 
 #### Params
+
 - **String** `message`: The message to answer to.
 - **Function** `cb`: The callback function.
 
@@ -94,12 +102,14 @@ Answers a message, without remembering it.
 Clears the internal cache.
 
 #### Params
+
 - **Function** `cb`: The callback function.
 
 ### `remove(filters, options, cb)`
 Removes messages.
 
 #### Params
+
 - **Object** `filters`: The query filters.
 - **Object** `options`: The query options.
 - **Function** `cb`: The callback function.
