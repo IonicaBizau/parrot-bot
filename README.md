@@ -5,11 +5,14 @@
 
 # parrot-bot
 
- [![Support me on Patreon][badge_patreon]][patreon] [![Buy me a book][badge_amazon]][amazon] [![PayPal][badge_paypal_donate]][paypal-donations] [![Ask me anything](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama) [![Version](https://img.shields.io/npm/v/parrot-bot.svg)](https://www.npmjs.com/package/parrot-bot) [![Downloads](https://img.shields.io/npm/dt/parrot-bot.svg)](https://www.npmjs.com/package/parrot-bot)
+ [![Support me on Patreon][badge_patreon]][patreon] [![Buy me a book][badge_amazon]][amazon] [![PayPal][badge_paypal_donate]][paypal-donations] [![Ask me anything](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama) [![Version](https://img.shields.io/npm/v/parrot-bot.svg)](https://www.npmjs.com/package/parrot-bot) [![Downloads](https://img.shields.io/npm/dt/parrot-bot.svg)](https://www.npmjs.com/package/parrot-bot) [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)
+
+<a href="https://www.buymeacoffee.com/H96WwChMy" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee"></a>
 
 > A parrot-like bot you can talk with.
 
 ## Online demo
+
 
 You can talk to the Parrot, by visiting [`parrot.ionicabizau.net`](https://parrot.ionicabizau.net). See below how to use it.
 
@@ -17,6 +20,7 @@ You can talk to the Parrot, by visiting [`parrot.ionicabizau.net`](https://parro
 [![](http://i.imgur.com/BLE5iI2.png)](https://parrot.ionicabizau.net)
 
 ## How it works
+
 
 The *Parrot Bot* doesn't know anything in the beginning. *You* have to teach them to give answers. The answers you will eventually get from the bot will be your own words, hence the name: *Parrot Bot*. 🐦
 
@@ -26,7 +30,11 @@ Enjoy! :tada:
 ## :cloud: Installation
 
 ```sh
-$ npm i --save parrot-bot
+# Using npm
+npm install --save parrot-bot
+
+# Using yarn
+yarn add parrot-bot
 ```
 
 
@@ -73,7 +81,9 @@ There are few ways to get help:
 
  1. Please [post questions on Stack Overflow](https://stackoverflow.com/questions/ask). You can open issues with questions, as long you add a link to your Stack Overflow question.
  2. For bug reports and feature requests, open issues. :bug:
+
  3. For direct and quick help, you can [use Codementor](https://www.codementor.io/johnnyb). :rocket:
+
 
 
 ## :memo: Documentation
@@ -202,10 +212,11 @@ Have an idea? Found a bug? See [how to contribute][contributing].
 
 ## :sparkling_heart: Support my projects
 
-I open-source almost everything I can, and I try to reply everyone needing help using these projects. Obviously,
+I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously,
 this takes time. You can integrate and use these projects in your applications *for free*! You can even change the source code and redistribute (even resell it).
 
 However, if you get some profit from this or just want to encourage me to continue creating stuff, there are few ways you can do it:
+
 
  - Starring and sharing the projects you like :rocket:
  - [![Buy me a book][badge_amazon]][amazon]—I love books! I will remember you after years if you buy me one. :grin: :book:
@@ -215,6 +226,7 @@ However, if you get some profit from this or just want to encourage me to contin
 
     ![](https://i.imgur.com/z6OQI95.png)
 
+
 Thanks! :heart:
 
 
@@ -223,14 +235,15 @@ Thanks! :heart:
 
 [MIT][license] © [Ionică Bizău][website]
 
-[badge_patreon]: http://ionicabizau.github.io/badges/patreon.svg
-[badge_amazon]: http://ionicabizau.github.io/badges/amazon.svg
-[badge_paypal]: http://ionicabizau.github.io/badges/paypal.svg
-[badge_paypal_donate]: http://ionicabizau.github.io/badges/paypal_donate.svg
+
+[badge_patreon]: https://ionicabizau.github.io/badges/patreon.svg
+[badge_amazon]: https://ionicabizau.github.io/badges/amazon.svg
+[badge_paypal]: https://ionicabizau.github.io/badges/paypal.svg
+[badge_paypal_donate]: https://ionicabizau.github.io/badges/paypal_donate.svg
+
 [patreon]: https://www.patreon.com/ionicabizau
 [amazon]: http://amzn.eu/hRo9sIZ
 [paypal-donations]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVXDDLKKLQRJW
-[donate-now]: http://i.imgur.com/6cMbHOC.png
 
 [license]: http://showalicense.com/?fullname=Ionic%C4%83%20Biz%C4%83u%20%3Cbizauionica%40gmail.com%3E%20(https%3A%2F%2Fionicabizau.net)&year=2013#license-mit
 [website]: https://ionicabizau.net
